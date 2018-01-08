@@ -312,6 +312,12 @@ var dashboard = new ParseDashboard({
       appName: process.env.APP_NAME || 'MyApp',
     },
   ],
+  users: [
+    {
+      user:'test',
+      pass:'test'
+    }
+  ]
 });
 
 // Parse Server plays nicely with the rest of your web routes
