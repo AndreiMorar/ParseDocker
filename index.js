@@ -7,6 +7,7 @@ var ParseServer = require('parse-server').ParseServer;
 var links = require('docker-links').parseLinks(process.env);
 var fs = require('fs');
 var AzureStorageAdapter = require('parse-server-azure-storage').AzureStorageAdapter;
+var ParseDashboard = require('parse-dashboard');
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI
 
@@ -296,10 +297,34 @@ if (trustProxy) {
 
 app.use(mountPath, api);
 
-// Parse Server plays nicely with the rest of your web routes
-app.get('/', function(req, res) {
-    res.status(200).send('I dream of being a web site.');
+/*------------------------------------*/
+
+var dashboard = new ParseDashboard({
+  let localParseServer = 'http://localhost:1337/parse';
+
+  // Heroku requires HTTPS. Please read the README file for details.
+  // let herokuParseServer = 'https://my-parse-dashboard.herokuapp.com/parse'
+
+  apps: [
+    {
+      appId: process.env.APP_ID || 'myAppId',
+      masterKey: process.env.MASTER_KEY || 'myMasterKey',
+      serverURL: process.env.SERVER_URL || herokuParseServer || localParseServer,
+      appName: process.env.APP_NAME || 'MyApp',
+    },
+  ],
 });
+
+// Parse Server plays nicely with the rest of your web routes
+/*app.get('/', function(req, res) {
+    res.status(200).send('I dream of being a web site.');
+});*/
+
+// make the Parse Dashboard available at /
+app.use('/', dashboard);
+
+
+/*------------------------------------*/
 
 
 
