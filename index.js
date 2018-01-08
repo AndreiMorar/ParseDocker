@@ -300,7 +300,6 @@ app.use(mountPath, api);
 /*------------------------------------*/
 
 var dashboard = new ParseDashboard({
-  let localParseServer = 'http://localhost:1337/parse';
 
   // Heroku requires HTTPS. Please read the README file for details.
   // let herokuParseServer = 'https://my-parse-dashboard.herokuapp.com/parse'
@@ -309,7 +308,7 @@ var dashboard = new ParseDashboard({
     {
       appId: process.env.APP_ID || 'myAppId',
       masterKey: process.env.MASTER_KEY || 'myMasterKey',
-      serverURL: process.env.SERVER_URL || herokuParseServer || localParseServer,
+      serverURL: process.env.SERVER_URL || herokuParseServer || 'http://localhost:1337/parse',
       appName: process.env.APP_NAME || 'MyApp',
     },
   ],
