@@ -314,7 +314,7 @@ var dashboard = new ParseDashboard({
   ],
   users: [
     {
-      user:'test',
+      user:'test@test.com',
       pass:'test'
     }
   ]
